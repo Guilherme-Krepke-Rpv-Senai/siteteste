@@ -25,6 +25,11 @@
                     🛒
                     <span class="cart-badge" id="cartBadge" class="hidden">0</span>
                 </button>
+                <div id="userInfo" class="user-info hidden">
+                    <span id="userName"></span>
+                    <button onclick="logout()" class="btn-logout">Sair</button>
+                </div>
+                <button id="btnLogin" class="btn-login" onclick="goToLogin()">Login</button>
                 <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
             </div>
         </div>
@@ -209,19 +214,19 @@
 
         // NAVEGAÇÃO
         function goToHome() {
-            window.location.href = 'index.html';
+            window.location.href = './index.html';
         }
 
         function goToLoja() {
-            window.location.href = 'index.html';
+            window.location.href = './index.html';
         }
 
         function goToCadastro() {
-            window.location.href = 'index.html';
+            window.location.href = './index.html';
         }
 
         function goToSobre() {
-            window.location.href = 'index.html';
+            window.location.href = './index.html';
         }
 
         // DARK MODE
