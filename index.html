@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STYLE CO. - Loja de Roupas</title>
-    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- HEADER -->
     <header>
         <div class="header-content">
-            <h1 class="logo">STYLE CO.</h1>
+            <h1 class="logo" onclick="goToHome()">STYLE CO.</h1>
             
             <nav class="nav-desktop">
-                <button onclick="showPage('home')">Home</button>
+                <button onclick="goToHome()">Home</button>
                 <button onclick="showPage('loja')">Loja</button>
                 <button id="navCadastro" onclick="showPage('cadastro')" class="hidden">Cadastrar</button>
                 <button id="navVendedor" onclick="showPage('vendedor')" class="hidden">Painel</button>
@@ -22,7 +22,7 @@
 
             <div class="header-right">
                 <button class="theme-btn" onclick="toggleDarkMode()">🌙</button>
-                <button class="cart-btn" onclick="window.location.href='carrinho.html'">
+                <button class="cart-btn" onclick="window.location.href='./carrinho.html'">
                     🛒
                     <span class="cart-badge" id="cartBadge" class="hidden">0</span>
                 </button>
@@ -30,13 +30,13 @@
                     <span id="userName"></span>
                     <button onclick="logout()" class="btn-logout">Sair</button>
                 </div>
-                <button id="btnLogin" class="btn-login" onclick="showPage('login')">Login</button>
+                <button id="btnLogin" class="btn-login" onclick="window.location.href='./logincad.html'">Login</button>
                 <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
             </div>
         </div>
 
         <nav class="nav-mobile" id="mobileMenu">
-            <button onclick="showPage('home'); toggleMobileMenu()">Home</button>
+            <button onclick="goToHome(); toggleMobileMenu()">Home</button>
             <button onclick="showPage('loja'); toggleMobileMenu()">Loja</button>
             <button id="navCadastroMobile" onclick="showPage('cadastro'); toggleMobileMenu()" class="hidden">Cadastrar</button>
             <button id="navVendedorMobile" onclick="showPage('vendedor'); toggleMobileMenu()" class="hidden">Painel</button>
@@ -46,107 +46,24 @@
 
     <!-- MAIN -->
     <main>
-        <!-- CADASTRO USUÁRIO PAGE -->
-        <div id="cadastro-usuario" class="page hidden">
-            <section>
-                <h2>Criar Conta</h2>
-                <div class="login-container" style="max-width: 500px;">
-                    <div class="form-container">
-                        <div class="form-group">
-                            <label>Nome Completo</label>
-                            <input type="text" id="regNome" placeholder="Seu nome completo">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="regEmail" placeholder="seu@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label>Senha (Mínimo 6 caracteres)</label>
-                            <input type="password" id="regPassword" placeholder="••••••">
-                        </div>
-                        <div class="form-group">
-                            <label>Confirmar Senha</label>
-                            <input type="password" id="regPasswordConfirm" placeholder="••••••">
-                        </div>
-                        <div class="form-group">
-                            <label>Tipo de Conta</label>
-                            <select id="regTipoConta">
-                                <option value="cliente">Cliente</option>
-                                <option value="vendedor">Vendedor</option>
-                            </select>
-                        </div>
-                        <button class="btn-primary" onclick="registerNewUser()">Criar Conta</button>
-                        <p style="text-align: center; margin-top: 1rem; font-weight: 600;">
-                            Já tem conta? <span onclick="showPage('login')" style="color: var(--primary); cursor: pointer; text-decoration: underline;">Faça login aqui</span>
-                        </p>
-                    </div>
-                </div>
-            </section>
-        </div>
-            <section>
-                <h2>Login / Cadastro</h2>
-                <div class="login-container">
-                    <div class="login-tabs">
-                        <button class="tab-btn active" onclick="switchTab('tab-login')">Login</button>
-                        <button class="tab-btn" onclick="switchTab('tab-cadastro')">Cadastro</button>
-                    </div>
-
-                    <!-- LOGIN -->
-                    <div id="tab-login" class="tab-content active">
-                        <div class="form-container">
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" id="loginEmail" placeholder="seu@email.com">
-                            </div>
-                            <div class="form-group">
-                                <label>Senha</label>
-                                <input type="password" id="loginPassword" placeholder="Sua senha">
-                            </div>
-                            <button class="btn-primary" onclick="handleLogin()">Entrar</button>
-                        </div>
-                    </div>
-
-                    <!-- CADASTRO -->
-                    <div id="tab-cadastro" class="tab-content">
-                        <div class="form-container">
-                            <div class="form-group">
-                                <label>Nome Completo</label>
-                                <input type="text" id="cadastroNome" placeholder="Seu nome">
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" id="cadastroEmail" placeholder="seu@email.com">
-                            </div>
-                            <div class="form-group">
-                                <label>Senha</label>
-                                <input type="password" id="cadastroPassword" placeholder="Mínimo 6 caracteres">
-                            </div>
-                            <div class="form-group">
-                                <label>Confirmar Senha</label>
-                                <input type="password" id="cadastroPasswordConfirm" placeholder="Confirme sua senha">
-                            </div>
-                            <div class="form-group">
-                                <label>Tipo de Conta</label>
-                                <select id="tipoConta">
-                                    <option value="cliente">Cliente</option>
-                                    <option value="vendedor">Vendedor</option>
-                                </select>
-                            </div>
-                            <button class="btn-primary" onclick="handleCadastro()">Criar Conta</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
         <!-- HOME PAGE -->
         <div id="home" class="page">
-            <section class="hero">
-                <h2 style="color: #1f2937 !important; text-shadow: none !important;">Bem-vindo à STYLE CO.</h2>
-                <p style="color: #1f2937 !important; text-shadow: none !important;">Moda minimalista com qualidade e personalidade</p>
-                <div class="hero-buttons">
-                    <button class="btn-primary" onclick="showPage('loja')">Ver Produtos</button>
-                    <button class="btn-secondary" id="btnCadastrarProduto" onclick="showPage('cadastro')" class="hidden">Cadastrar Produto</button>
+            <!-- HERO COM CARROSSEL -->
+            <section class="hero" id="heroSection">
+                <div class="hero-carousel-container">
+                    <div class="hero-carousel" id="heroCarousel"></div>
+                    <button class="carousel-btn prev" onclick="prevSlide()">❮</button>
+                    <button class="carousel-btn next" onclick="nextSlide()">❯</button>
+                    <div class="carousel-dots" id="carouselDots"></div>
+                </div>
+                
+                <div class="hero-content">
+                    <h2>Bem-vindo à STYLE CO.</h2>
+                    <p>Moda minimalista com qualidade e personalidade</p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary" onclick="showPage('loja')">Ver Produtos</button>
+                        <button class="btn-secondary" id="btnCadastrarProduto" onclick="showPage('cadastro')" class="hidden">Cadastrar Produto</button>
+                    </div>
                 </div>
             </section>
 
@@ -171,7 +88,7 @@
             </section>
         </div>
 
-        <!-- CADASTRO PAGE (Apenas para vendedores) -->
+        <!-- CADASTRO PAGE -->
         <div id="cadastro" class="page hidden">
             <section>
                 <h2>Cadastrar Produto</h2>
@@ -199,7 +116,7 @@
                     </div>
                     <div class="form-group">
                         <label>Imagem do Produto</label>
-                        <div class="file-input-wrapper" id="fileWrapper">
+                        <div class="file-input-wrapper">
                             <label class="file-input-label">
                                 <div class="file-input-text">📸 Clique ou arraste uma imagem</div>
                                 <div class="file-input-subtext">PNG, JPG ou GIF (máx. 5MB)</div>
@@ -208,7 +125,7 @@
                             <img id="imagePreview" class="preview-image hidden">
                         </div>
                     </div>
-                    <button class="btn-primary" onclick="addProduct()">Cadastrar Produto</button>
+                    <button class="btn-submit" onclick="addProduct()">Cadastrar Produto</button>
                 </div>
             </section>
         </div>
@@ -251,7 +168,7 @@
                     <p>A STYLE CO. é uma loja minimalista dedicada a oferecer moda de qualidade com personalidade. Acreditamos que estilo é acessível e que cada peça deve contar uma história.</p>
                     <p>Nossa missão é trazer peças sofisticadas que combinam conforto, qualidade e design moderno para o seu dia a dia.</p>
                     
-                    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1);">
+                    <div class="sobre-section">
                         <h3>Conecte-se Conosco</h3>
                         <div class="social-links">
                             <button class="social-btn facebook">Facebook</button>
@@ -260,7 +177,7 @@
                         </div>
                     </div>
 
-                    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1);">
+                    <div class="sobre-section">
                         <h3>Entre em Contato</h3>
                         <div class="form-container">
                             <div class="form-group">
@@ -275,7 +192,7 @@
                                 <label>Mensagem</label>
                                 <textarea placeholder="Sua mensagem"></textarea>
                             </div>
-                            <button class="btn-primary">Enviar Mensagem</button>
+                            <button class="btn-submit">Enviar Mensagem</button>
                         </div>
                     </div>
                 </div>
@@ -290,196 +207,9 @@
     </footer>
 
     <script>
-        // ========== SISTEMA DE AUTENTICAÇÃO ==========
+        // ========== CONFIGURAÇÃO GERAL ==========
         let currentUser = null;
         let users = [];
-
-        // Carregar usuários do localStorage
-        function loadUsers() {
-            const savedUsers = JSON.parse(localStorage.getItem('users')) || [];
-            users = savedUsers;
-        }
-
-        // Validar força da senha
-        function validatePassword(password) {
-            return password.length >= 6;
-        }
-
-        // REGISTRAR NOVO USUÁRIO
-        function registerNewUser() {
-            const nome = document.getElementById('regNome').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value;
-            const passwordConfirm = document.getElementById('regPasswordConfirm').value;
-            const tipo = document.getElementById('regTipoConta').value;
-
-            // Validações
-            if (!nome || !email || !password || !passwordConfirm) {
-                alert('❌ Preencha todos os campos!');
-                return;
-            }
-
-            if (!validatePassword(password)) {
-                alert('❌ Senha deve ter no mínimo 6 caracteres!');
-                return;
-            }
-
-            if (password !== passwordConfirm) {
-                alert('❌ As senhas não conferem!');
-                return;
-            }
-
-            // Validar email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('❌ Email inválido!');
-                return;
-            }
-
-            // Verificar se email já existe
-            if (users.find(u => u.email === email)) {
-                alert('❌ Este email já está cadastrado!');
-                return;
-            }
-
-            // Criar novo usuário
-            const newUser = { nome, email, password, tipo, dataCadastro: new Date().toLocaleDateString() };
-            users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
-
-            alert('✅ Cadastro realizado com sucesso! Faça login para continuar.');
-            
-            // Limpar formulário
-            document.getElementById('regNome').value = '';
-            document.getElementById('regEmail').value = '';
-            document.getElementById('regPassword').value = '';
-            document.getElementById('regPasswordConfirm').value = '';
-            
-            // Redirecionar para login
-            showPage('login');
-        }
-
-        // Handle Login
-        function handleLogin() {
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-
-            if (!email || !password) {
-                alert('❌ Preencha todos os campos!');
-                return;
-            }
-
-            const user = users.find(u => u.email === email && u.password === password);
-
-            if (user) {
-                currentUser = { email: user.email, nome: user.nome, tipo: user.tipo };
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                updateUI();
-                showPage('home');
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
-                alert('✅ Login realizado com sucesso! Bem-vindo, ' + user.nome + '!');
-            } else {
-                alert('❌ Email ou senha incorretos!');
-            }
-        }
-
-        // Handle Cadastro (da aba)
-        function handleCadastro() {
-            const nome = document.getElementById('cadastroNome').value.trim();
-            const email = document.getElementById('cadastroEmail').value.trim();
-            const password = document.getElementById('cadastroPassword').value;
-            const passwordConfirm = document.getElementById('cadastroPasswordConfirm').value;
-            const tipo = document.getElementById('tipoConta').value;
-
-            if (!nome || !email || !password || !passwordConfirm) {
-                alert('❌ Preencha todos os campos!');
-                return;
-            }
-
-            if (!validatePassword(password)) {
-                alert('❌ Senha deve ter no mínimo 6 caracteres!');
-                return;
-            }
-
-            if (password !== passwordConfirm) {
-                alert('❌ As senhas não conferem!');
-                return;
-            }
-
-            if (users.find(u => u.email === email)) {
-                alert('❌ Este email já está cadastrado!');
-                return;
-            }
-
-            const newUser = { nome, email, password, tipo };
-            users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
-
-            alert('✅ Cadastro realizado com sucesso! Faça login para continuar.');
-            switchTab('tab-login');
-            document.getElementById('cadastroNome').value = '';
-            document.getElementById('cadastroEmail').value = '';
-            document.getElementById('cadastroPassword').value = '';
-            document.getElementById('cadastroPasswordConfirm').value = '';
-        }
-
-        // Logout
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            updateUI();
-            showPage('home');
-        }
-
-        // Atualizar UI baseado no usuário logado
-        function updateUI() {
-            const btnLogin = document.getElementById('btnLogin');
-            const userInfo = document.getElementById('userInfo');
-            const navCadastro = document.getElementById('navCadastro');
-            const navCadastroMobile = document.getElementById('navCadastroMobile');
-            const navVendedor = document.getElementById('navVendedor');
-            const navVendedorMobile = document.getElementById('navVendedorMobile');
-            const btnCadastrarProduto = document.getElementById('btnCadastrarProduto');
-
-            if (currentUser) {
-                btnLogin.classList.add('hidden');
-                userInfo.classList.remove('hidden');
-                document.getElementById('userName').textContent = `Olá, ${currentUser.nome}`;
-
-                if (currentUser.tipo === 'vendedor') {
-                    navCadastro.classList.remove('hidden');
-                    navCadastroMobile.classList.remove('hidden');
-                    navVendedor.classList.remove('hidden');
-                    navVendedorMobile.classList.remove('hidden');
-                    btnCadastrarProduto.classList.remove('hidden');
-                } else {
-                    navCadastro.classList.add('hidden');
-                    navCadastroMobile.classList.add('hidden');
-                    navVendedor.classList.add('hidden');
-                    navVendedorMobile.classList.add('hidden');
-                    btnCadastrarProduto.classList.add('hidden');
-                }
-            } else {
-                btnLogin.classList.remove('hidden');
-                userInfo.classList.add('hidden');
-                navCadastro.classList.add('hidden');
-                navCadastroMobile.classList.add('hidden');
-                navVendedor.classList.add('hidden');
-                navVendedorMobile.classList.add('hidden');
-                btnCadastrarProduto.classList.add('hidden');
-            }
-        }
-
-        // Switch de abas no login
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // ========== DADOS E PRODUTOS ==========
         let products = [
             { id: 1, name: 'Camiseta Premium', price: 79.90, category: 'camisetas', image: '👕', description: 'Camiseta de algodão 100% confortável', vendedor: 'admin' },
             { id: 2, name: 'Calça Jeans', price: 129.90, category: 'calças', image: '👖', description: 'Calça jeans clássica de qualidade', vendedor: 'admin' },
@@ -489,29 +219,107 @@
         let cart = [];
         let currentFilter = 'todos';
         let selectedProduct = null;
+        let currentSlide = 0;
 
-        // CARREGAR DADOS
+        // ========== CARROSSEL ==========
+        const carouselImages = [
+            'imagenscarrossel/img1.jpg',
+            'imagenscarrossel/img2.jpg',
+            'imagenscarrossel/img3.jpg',
+            'imagenscarrossel/img4.jpg'
+        ];
+
+        function initCarousel() {
+            const carousel = document.getElementById('heroCarousel');
+            const dots = document.getElementById('carouselDots');
+            
+            carousel.innerHTML = '';
+            dots.innerHTML = '';
+            
+            carouselImages.forEach((img, index) => {
+                const slide = document.createElement('div');
+                slide.className = `carousel-slide ${index === 0 ? 'active' : ''}`;
+                slide.style.backgroundImage = `url('${img}')`;
+                carousel.appendChild(slide);
+
+                const dot = document.createElement('button');
+                dot.className = `dot ${index === 0 ? 'active' : ''}`;
+                dot.onclick = () => goToSlide(index);
+                dots.appendChild(dot);
+            });
+
+            setInterval(autoSlide, 5000);
+        }
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.dot');
+            
+            if (n >= slides.length) currentSlide = 0;
+            if (n < 0) currentSlide = slides.length - 1;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        function goToSlide(n) {
+            currentSlide = n;
+            showSlide(currentSlide);
+        }
+
+        function autoSlide() {
+            nextSlide();
+        }
+
+        // ========== AUTENTICAÇÃO ==========
+        function loadUsers() {
+            users = JSON.parse(localStorage.getItem('users')) || [];
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateUI();
+            showPage('home');
+        }
+
+        // ========== DADOS ==========
         function loadData() {
             const savedProducts = localStorage.getItem('products');
             const savedCart = localStorage.getItem('cart');
             if (savedProducts) products = JSON.parse(savedProducts);
             if (savedCart) cart = JSON.parse(savedCart);
+            
             updateCartBadge();
             renderAllProducts();
             renderVendedorProducts();
             loadUsers();
+            
             const savedUser = localStorage.getItem('currentUser');
             if (savedUser) currentUser = JSON.parse(savedUser);
+            
             updateUI();
         }
 
-        // SALVAR DADOS
         function saveData() {
             localStorage.setItem('products', JSON.stringify(products));
             localStorage.setItem('cart', JSON.stringify(cart));
         }
 
-        // MOSTRAR/ESCONDER PÁGINA
+        // ========== NAVEGAÇÃO ==========
         function showPage(pageName) {
             if (pageName === 'cadastro' || pageName === 'vendedor') {
                 if (!currentUser || currentUser.tipo !== 'vendedor') {
@@ -525,18 +333,11 @@
             window.scrollTo(0, 0);
         }
 
-        // DARK MODE
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        function goToHome() {
+            window.location.href = './index.html';
         }
 
-        // MOBILE MENU
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('active');
-        }
-
-        // RENDERIZAR PRODUTOS
+        // ========== PRODUTOS ==========
         function renderProducts(containerId, productsToRender) {
             const html = productsToRender.map(p => `
                 <div class="product-card">
@@ -555,7 +356,70 @@
             document.getElementById(containerId).innerHTML = html;
         }
 
-        // RENDERIZAR PRODUTOS DO VENDEDOR
+        function renderAllProducts() {
+            renderProducts('destaqueProducts', products.slice(0, 4));
+            filterProducts('todos');
+        }
+
+        function filterProducts(category) {
+            currentFilter = category;
+            const filtered = category === 'todos' ? products : products.filter(p => p.category === category);
+            renderProducts('lojaProducts', filtered);
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(category) || 
+                    (category === 'todos' && btn.textContent.toLowerCase() === 'todos')) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function viewProduct(id) {
+            selectedProduct = products.find(p => p.id === id);
+            const detImage = document.getElementById('detImage');
+            if (selectedProduct.isImage) {
+                detImage.innerHTML = `<img src="${selectedProduct.image}" alt="${selectedProduct.name}">`;
+            } else {
+                detImage.innerHTML = selectedProduct.image;
+            }
+            document.getElementById('detName').textContent = selectedProduct.name;
+            document.getElementById('detDesc').textContent = selectedProduct.description;
+            document.getElementById('detPrice').textContent = `R$ ${selectedProduct.price.toFixed(2)}`;
+            showPage('detalhes');
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            saveData();
+            updateCartBadge();
+            alert('Adicionado ao carrinho!');
+        }
+
+        function addToCartFromDetail() {
+            addToCart(selectedProduct.id);
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            if (cart.length > 0) {
+                badge.textContent = cart.length;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        // ========== VENDEDOR ==========
         function renderVendedorProducts() {
             if (!currentUser || currentUser.tipo !== 'vendedor') return;
 
@@ -579,105 +443,19 @@
             document.getElementById('vendedorProducts').innerHTML = html || '<p>Você não tem produtos cadastrados</p>';
         }
 
-        // RENDERIZAR TODOS OS PRODUTOS
-        function renderAllProducts() {
-            renderProducts('destaqueProducts', products.slice(0, 4));
-            filterProducts('todos');
-        }
-
-        // FILTRAR PRODUTOS
-        function filterProducts(category) {
-            currentFilter = category;
-            const filtered = category === 'todos' ? products : products.filter(p => p.category === category);
-            renderProducts('lojaProducts', filtered);
-            
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            
-            // Encontrar o botão correto e marcar como ativo
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => {
-                if (btn.textContent.toLowerCase().includes(category) || 
-                    (category === 'todos' && btn.textContent.toLowerCase() === 'todos')) {
-                    btn.classList.add('active');
-                }
-            });
-        }
-
-        // VER DETALHES
-        function viewProduct(id) {
-            selectedProduct = products.find(p => p.id === id);
-            const detImage = document.getElementById('detImage');
-            if (selectedProduct.isImage) {
-                detImage.innerHTML = `<img src="${selectedProduct.image}" alt="${selectedProduct.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.5rem;">`;
-            } else {
-                detImage.innerHTML = selectedProduct.image;
-            }
-            document.getElementById('detName').innerHTML = selectedProduct.name;
-            document.getElementById('detDesc').innerHTML = selectedProduct.description;
-            document.getElementById('detPrice').innerHTML = `R$ ${selectedProduct.price.toFixed(2)}`;
-            showPage('detalhes');
-        }
-
-        // ADICIONAR AO CARRINHO
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            const existing = cart.find(item => item.id === id);
-            
-            if (existing) {
-                existing.quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-            
-            saveData();
-            updateCartBadge();
-            alert('Adicionado ao carrinho!');
-        }
-
-        // ADICIONAR AO CARRINHO DO DETALHE
-        function addToCartFromDetail() {
-            addToCart(selectedProduct.id);
-        }
-
-        // ATUALIZAR BADGE DO CARRINHO
-        function updateCartBadge() {
-            const badge = document.getElementById('cartBadge');
-            if (cart.length > 0) {
-                badge.innerHTML = cart.length;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
-        }
-
-        // PREVIEW DE IMAGEM
-        function previewImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = document.getElementById('imagePreview');
-                    preview.src = e.target.result;
-                    preview.classList.remove('hidden');
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // ADICIONAR PRODUTO (apenas vendedor)
         function addProduct() {
             if (!currentUser || currentUser.tipo !== 'vendedor') {
                 alert('Apenas vendedores podem cadastrar produtos!');
                 return;
             }
 
-            const name = document.getElementById('prodName').value;
+            const name = document.getElementById('prodName').value.trim();
             const price = parseFloat(document.getElementById('prodPrice').value);
             const category = document.getElementById('prodCategory').value;
-            const description = document.getElementById('prodDesc').value;
+            const description = document.getElementById('prodDesc').value.trim();
             const imageInput = document.getElementById('prodImage');
             
-            if (!name || !price) {
+            if (!name || !price || !description) {
                 alert('Preencha todos os campos obrigatórios!');
                 return;
             }
@@ -702,8 +480,8 @@
                     saveData();
                     clearForm();
                     renderVendedorProducts();
-                    alert('Produto cadastrado com sucesso!');
                     renderAllProducts();
+                    alert('Produto cadastrado com sucesso!');
                 };
                 reader.readAsDataURL(imageInput.files[0]);
             } else {
@@ -711,18 +489,17 @@
                 saveData();
                 clearForm();
                 renderVendedorProducts();
-                alert('Produto cadastrado com sucesso!');
                 renderAllProducts();
+                alert('Produto cadastrado com sucesso!');
             }
         }
 
-        // DELETAR PRODUTO
         function deleteProduct(id) {
             if (!confirm('Tem certeza que deseja deletar este produto?')) return;
             
             const product = products.find(p => p.id === id);
             if (product.vendedor !== currentUser.email) {
-                alert('Você não tem permissão para deletar este produto!');
+                alert('Você não tem permissão!');
                 return;
             }
 
@@ -730,15 +507,13 @@
             saveData();
             renderVendedorProducts();
             renderAllProducts();
-            alert('Produto deletado com sucesso!');
+            alert('Produto deletado!');
         }
 
-        // EDITAR PRODUTO
         function editProduct(id) {
-            alert('Funcionalidade de edição em desenvolvimento!');
+            alert('Edição em desenvolvimento!');
         }
 
-        // LIMPAR FORMULÁRIO
         function clearForm() {
             document.getElementById('prodName').value = '';
             document.getElementById('prodPrice').value = '';
@@ -747,9 +522,63 @@
             document.getElementById('imagePreview').classList.add('hidden');
         }
 
-        // INICIALIZAR
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // ========== UI ==========
+        function updateUI() {
+            const btnLogin = document.getElementById('btnLogin');
+            const userInfo = document.getElementById('userInfo');
+            const navCadastro = document.getElementById('navCadastro');
+            const navVendedor = document.getElementById('navVendedor');
+            const btnCadastrarProduto = document.getElementById('btnCadastrarProduto');
+
+            if (currentUser) {
+                btnLogin.classList.add('hidden');
+                userInfo.classList.remove('hidden');
+                document.getElementById('userName').textContent = `Olá, ${currentUser.nome}`;
+
+                if (currentUser.tipo === 'vendedor') {
+                    navCadastro.classList.remove('hidden');
+                    navVendedor.classList.remove('hidden');
+                    btnCadastrarProduto.classList.remove('hidden');
+                } else {
+                    navCadastro.classList.add('hidden');
+                    navVendedor.classList.add('hidden');
+                    btnCadastrarProduto.classList.add('hidden');
+                }
+            } else {
+                btnLogin.classList.remove('hidden');
+                userInfo.classList.add('hidden');
+                navCadastro.classList.add('hidden');
+                navVendedor.classList.add('hidden');
+                btnCadastrarProduto.classList.add('hidden');
+            }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        // ========== INICIALIZAR ==========
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
+            initCarousel();
             if (localStorage.getItem('darkMode') === 'true') {
                 document.body.classList.add('dark');
             }
