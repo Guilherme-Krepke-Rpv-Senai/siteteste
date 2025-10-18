@@ -21,7 +21,7 @@
 
             <div class="header-right">
                 <button class="theme-btn" onclick="toggleDarkMode()">🌙</button>
-                <button class="cart-btn" onclick="window.location.href='./carrinho.html'">
+                <button class="cart-btn" onclick="window.location.href='carrinho.html'">
                     🛒
                     <span class="cart-badge" id="cartBadge" class="hidden">0</span>
                 </button>
@@ -42,8 +42,8 @@
         <!-- HOME PAGE -->
         <div id="home" class="page">
             <section class="hero">
-                <h2>Bem-vindo à STYLE CO.</h2>
-                <p>Moda minimalista com qualidade e personalidade</p>
+                <h2 style="color: #1f2937 !important; text-shadow: none !important;">Bem-vindo à STYLE CO.</h2>
+                <p style="color: #1f2937 !important; text-shadow: none !important;">Moda minimalista com qualidade e personalidade</p>
                 <div class="hero-buttons">
                     <button class="btn-primary" onclick="showPage('loja')">Ver Produtos</button>
                     <button class="btn-secondary" onclick="showPage('cadastro')">Cadastrar Produto</button>
@@ -127,24 +127,6 @@
                             <button class="btn-comprar" onclick="addToCartFromDetail()">Comprar Agora</button>
                             <button class="btn-primary" onclick="showPage('loja')">Continuar Shopping</button>
                         </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- CARRINHO PAGE -->
-        <div id="carrinho" class="page hidden">
-            <section>
-                <h2>Carrinho de Compras</h2>
-                <div id="cartEmpty" class="form-container" style="text-align: center;">
-                    <p style="margin-bottom: 1rem;">Seu carrinho está vazio</p>
-                    <button class="btn-primary" onclick="showPage('loja')">Ver Produtos</button>
-                </div>
-                <div id="cartFull" class="hidden">
-                    <div class="cart-items" id="cartItems"></div>
-                    <div class="cart-total">
-                        <div class="total-text">Total: R$ <span id="cartTotalPrice">0.00</span></div>
-                        <button class="btn-checkout">Finalizar Compra</button>
                     </div>
                 </div>
             </section>
@@ -313,42 +295,6 @@
             addToCart(selectedProduct.id);
         }
 
-        // REMOVER DO CARRINHO
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            saveData();
-            updateCart();
-        }
-
-        // ATUALIZAR CARRINHO
-        function updateCart() {
-            if (cart.length === 0) {
-                document.getElementById('cartEmpty').classList.remove('hidden');
-                document.getElementById('cartFull').classList.add('hidden');
-            } else {
-                document.getElementById('cartEmpty').classList.add('hidden');
-                document.getElementById('cartFull').classList.remove('hidden');
-                
-                const cartHtml = cart.map(item => `
-                    <div class="cart-item">
-                        <div class="cart-item-image">${item.image}</div>
-                        <div class="cart-item-info">
-                            <h4>${item.name}</h4>
-                            <p class="price">R$ ${item.price.toFixed(2)}</p>
-                        </div>
-                        <div style="text-align: right;">
-                            <p style="margin-bottom: 0.5rem;">Qtd: ${item.quantity}</p>
-                            <button class="btn-remove" onclick="removeFromCart(${item.id})">Remover</button>
-                        </div>
-                    </div>
-                `).join('');
-                document.getElementById('cartItems').innerHTML = cartHtml;
-                
-                const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-                document.getElementById('cartTotalPrice').innerHTML = total.toFixed(2);
-            }
-        }
-
         // ATUALIZAR BADGE DO CARRINHO
         function updateCartBadge() {
             const badge = document.getElementById('cartBadge');
@@ -360,16 +306,30 @@
             }
         }
 
+        // PREVIEW DE IMAGEM
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
         // ADICIONAR PRODUTO
         function addProduct() {
             const name = document.getElementById('prodName').value;
             const price = parseFloat(document.getElementById('prodPrice').value);
             const category = document.getElementById('prodCategory').value;
             const description = document.getElementById('prodDesc').value;
-            const image = document.getElementById('prodEmoji').value;
-
+            const imageInput = document.getElementById('prodImage');
+            
             if (!name || !price) {
-                alert('Preencha todos os campos!');
+                alert('Preencha todos os campos obrigatórios!');
                 return;
             }
 
@@ -379,19 +339,39 @@
                 price,
                 category,
                 description,
-                image
+                image: '👕',
+                isImage: false
             };
 
-            products.push(newProduct);
-            saveData();
-            
+            // Se tiver imagem
+            if (imageInput.files && imageInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newProduct.image = e.target.result;
+                    newProduct.isImage = true;
+                    products.push(newProduct);
+                    saveData();
+                    clearForm();
+                    alert('Produto cadastrado com sucesso!');
+                    renderAllProducts();
+                };
+                reader.readAsDataURL(imageInput.files[0]);
+            } else {
+                products.push(newProduct);
+                saveData();
+                clearForm();
+                alert('Produto cadastrado com sucesso!');
+                renderAllProducts();
+            }
+        }
+
+        // LIMPAR FORMULÁRIO
+        function clearForm() {
             document.getElementById('prodName').value = '';
             document.getElementById('prodPrice').value = '';
             document.getElementById('prodDesc').value = '';
-            document.getElementById('prodEmoji').value = '👕';
-            
-            alert('Produto cadastrado com sucesso!');
-            renderAllProducts();
+            document.getElementById('prodImage').value = '';
+            document.getElementById('imagePreview').classList.add('hidden');
         }
 
         // INICIALIZAR
@@ -400,21 +380,6 @@
             if (localStorage.getItem('darkMode') === 'true') {
                 document.body.classList.add('dark');
             }
-        });
-
-        // ATUALIZAR CARRINHO QUANDO ABRIR
-        const observer = new MutationObserver(() => {
-            if (!document.getElementById('carrinho').classList.contains('hidden')) {
-                updateCart();
-            }
-        });
-
-        observer.observe(document.body, { attributes: true, subtree: true });
-
-        // MOSTRAR CARRINHO AO CLICAR NO ÍCONE
-        document.querySelector('.cart-btn').addEventListener('click', () => {
-            showPage('carrinho');
-            updateCart();
         });
     </script>
 </body>
