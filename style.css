@@ -1341,6 +1341,11 @@ footer p {
     
     .cart-resumo {
         position: static;
+        order: 2;
+    }
+    
+    .cart-items-list {
+        order: 1;
     }
     
     .cart-item {
@@ -1360,6 +1365,21 @@ footer p {
         justify-content: space-between;
         align-items: center;
         margin-top: 0.8rem;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+    
+    .item-controls .quantity-controls {
+        order: 1;
+    }
+    
+    .item-controls .item-total {
+        order: 2;
+    }
+    
+    .item-controls .btn-remove {
+        order: 3;
+        width: 100%;
     }
     
     /* Formulários */
@@ -1593,6 +1613,12 @@ footer p {
         margin-top: 1rem;
     }
     
+    .detalhes-actions .btn-comprar,
+    .detalhes-actions .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+    
     /* Carrinho */
     .cart-container {
         gap: 1.2rem;
@@ -1608,6 +1634,10 @@ footer p {
         width: 100%;
         height: 160px;
         font-size: 4.5rem;
+    }
+    
+    .item-details {
+        text-align: center;
     }
     
     .item-details h3 {
@@ -1626,12 +1656,13 @@ footer p {
         flex-direction: column;
         align-items: stretch;
         width: 100%;
-        gap: 0.8rem;
+        gap: 1rem;
     }
     
     .quantity-controls {
         width: 100%;
         justify-content: center;
+        order: 1;
     }
     
     .qty-btn {
@@ -1648,12 +1679,14 @@ footer p {
     .item-total {
         text-align: center;
         font-size: 1.2rem;
+        order: 2;
     }
     
     .btn-remove {
         width: 100%;
         padding: 0.75rem;
         font-size: 0.95rem;
+        order: 3;
     }
     
     /* Resumo */
@@ -1663,6 +1696,7 @@ footer p {
     
     .resumo-title {
         font-size: 1.2rem;
+        text-align: center;
     }
     
     .resumo-item {
@@ -1673,16 +1707,38 @@ footer p {
     
     .resumo-total {
         font-size: 1.4rem;
+        text-align: center;
     }
     
     .btn-submit, .btn-comprar, .btn-checkout, .btn-continuar {
         padding: 0.9rem;
         font-size: 1rem;
+        width: 100%;
     }
     
     .btn-voltar {
         padding: 0.7rem 1.2rem;
         font-size: 0.9rem;
+        display: block;
+        width: fit-content;
+    }
+    
+    /* Carrinho Vazio */
+    .carrinho-vazio {
+        padding: 2rem 1rem;
+        text-align: center;
+    }
+    
+    .carrinho-vazio p {
+        font-size: 1rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .carrinho-vazio .btn-voltar-loja {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        display: block;
     }
     
     /* Vendedor */
