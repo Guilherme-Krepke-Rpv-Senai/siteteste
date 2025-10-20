@@ -1,24 +1,17 @@
 // ==========================================
-// LOJA.JS - Sistema de Filtros e Exibição
+// LOJA.JS - Sistema de Filtros para Loja
 // ==========================================
 
 let produtosFiltrados = [];
-let visualizacaoAtual = 'grid';
-let produtosPorPagina = 12;
-let paginaAtual = 1;
-
-function inicializarLoja() {
-    console.log('🛍️ Inicializando sistema de loja...');
-    loadProducts();
-    filtrarProdutos();
-    atualizarContador();
-}
 
 function filtrarProdutos() {
     const termoBusca = document.getElementById('searchInput').value.toLowerCase();
     const categoria = document.getElementById('filtroCategoria').value;
     const faixaPreco = document.getElementById('filtroPreco').value;
     const ordenacao = document.getElementById('ordenacao').value;
+
+    // Carregar produtos
+    const products = JSON.parse(localStorage.getItem('products')) || [];
 
     // Aplicar filtros
     produtosFiltrados = products.filter(product => {
@@ -33,33 +26,16 @@ function filtrarProdutos() {
         // Filtro por preço
         let matchPreco = true;
         if (faixaPreco) {
-            const [min, max] = faixaPreco.split('-').map(val => {
-                if (val.endsWith('+')) return parseFloat(val) + 1;
-                return parseFloat(val);
-            });
-            
-            if (faixaPreco.endsWith('+')) {
-                matchPreco = product.price >= min;
-            } else {
-                matchPreco = product.price >= min && product.price <= max;
-            }
+            if (faixaPreco === '0-50') matchPreco = product.price <= 50;
+            else if (faixaPreco === '50-100') matchPreco = product.price > 50 && product.price <= 100;
+            else if (faixaPreco === '100-200') matchPreco = product.price > 100 && product.price <= 200;
+            else if (faixaPreco === '200+') matchPreco = product.price > 200;
         }
 
         return matchBusca && matchCategoria && matchPreco;
     });
 
     // Aplicar ordenação
-    ordenarProdutos(ordenacao);
-
-    // Atualizar interface
-    paginaAtual = 1;
-    renderProdutosFiltrados();
-    atualizarContador();
-    atualizarFiltrosAtivos(termoBusca, categoria, faixaPreco);
-    atualizarPaginacao();
-}
-
-function ordenarProdutos(ordenacao) {
     switch (ordenacao) {
         case 'menor-preco':
             produtosFiltrados.sort((a, b) => a.price - b.price);
@@ -70,39 +46,13 @@ function ordenarProdutos(ordenacao) {
         case 'nome-az':
             produtosFiltrados.sort((a, b) => a.name.localeCompare(b.name));
             break;
-        case 'nome-za':
-            produtosFiltrados.sort((a, b) => b.name.localeCompare(a.name));
-            break;
-        case 'novos':
+        default: // mais relevantes (mais novos primeiro)
             produtosFiltrados.sort((a, b) => new Date(b.dataCadastro || 0) - new Date(a.dataCadastro || 0));
-            break;
-        default: // mais relevantes
-            produtosFiltrados.sort((a, b) => {
-                // Ordem personalizada para relevância
-                const scoreA = calcularRelevancia(a);
-                const scoreB = calcularRelevancia(b);
-                return scoreB - scoreA;
-            });
     }
-}
 
-function calcularRelevancia(product) {
-    let score = 0;
-    
-    // Produtos com imagem têm mais relevância
-    if (product.isImage) score += 10;
-    
-    // Produtos mais recentes têm mais relevância
-    if (product.dataCadastro) {
-        const dias = (new Date() - new Date(product.dataCadastro)) / (1000 * 60 * 60 * 24);
-        if (dias < 7) score += 20; // Produtos da última semana
-        else if (dias < 30) score += 10; // Produtos do último mês
-    }
-    
-    // Preços médios têm mais relevância (evita extremos)
-    if (product.price > 50 && product.price < 200) score += 5;
-    
-    return score;
+    // Atualizar interface
+    renderProdutosFiltrados();
+    atualizarEstadoVazio();
 }
 
 function renderProdutosFiltrados() {
@@ -111,131 +61,57 @@ function renderProdutosFiltrados() {
     
     if (!container) return;
 
-    // Calcular produtos da página atual
-    const inicio = (paginaAtual - 1) * produtosPorPagina;
-    const fim = inicio + produtosPorPagina;
-    const produtosPagina = produtosFiltrados.slice(inicio, fim);
-
-    // Mostrar/ocultar estado vazio
     if (produtosFiltrados.length === 0) {
-        container.style.display = 'none';
-        estadoVazio.classList.remove('hidden');
+        container.innerHTML = '';
+        if (estadoVazio) estadoVazio.classList.remove('hidden');
+        atualizarContador(0);
         return;
-    } else {
-        container.style.display = 'grid';
-        estadoVazio.classList.add('hidden');
     }
 
-    // Renderizar produtos
-    const html = produtosPagina.map(product => `
-        <div class="product-card ${visualizacaoAtual === 'lista' ? 'product-list-view' : ''}" 
-             data-product-id="${product.id}">
-            ${product.isImage ? 
-                `<div class="product-image" onclick="goToDetalhes(${product.id})">
-                    <img src="${product.image}" alt="${product.name}" loading="lazy">
-                </div>` :
-                `<div class="product-image" onclick="goToDetalhes(${product.id})">
-                    ${product.image}
-                </div>`
-            }
+    if (estadoVazio) estadoVazio.classList.add('hidden');
+
+    const html = produtosFiltrados.map(product => `
+        <div class="product-card" data-product-id="${product.id}">
+            <div class="product-image" onclick="goToDetalhes(${product.id})">
+                ${product.isImage ? 
+                    `<img src="${product.image}" alt="${product.name}" loading="lazy">` : 
+                    `<div style="font-size: 4rem;">${product.image}</div>`
+                }
+            </div>
             <div class="product-info">
                 <h4>${product.name}</h4>
                 <p class="product-desc">${product.description}</p>
-                <div class="product-meta">
-                    <span class="product-category">${getCategoryName(product.category)}</span>
-                    <span class="product-seller">por ${product.vendedorNome || product.vendedor}</span>
-                    ${product.dataCadastro ? `
-                        <span class="product-date">
-                            📅 ${new Date(product.dataCadastro).toLocaleDateString('pt-BR')}
-                        </span>
-                    ` : ''}
-                </div>
+                <p class="product-category">${getCategoryName(product.category)}</p>
                 <p class="price">R$ ${product.price.toFixed(2)}</p>
             </div>
             <div class="product-actions">
-                <button class="btn-details" onclick="goToDetalhes(${product.id})">
-                    👀 Detalhes
-                </button>
-                <button class="btn-add" onclick="addToCart(${product.id})">
-                    🛒 Adicionar
-                </button>
+                <button class="btn-details" onclick="goToDetalhes(${product.id})">Ver Detalhes</button>
+                <button class="btn-add" onclick="addToCart(${product.id})">Adicionar</button>
             </div>
         </div>
     `).join('');
 
     container.innerHTML = html;
-    container.className = `products-grid ${visualizacaoAtual === 'lista' ? 'list-view' : ''}`;
+    atualizarContador(produtosFiltrados.length);
 }
 
-function atualizarContador() {
+function atualizarContador(total) {
     const contador = document.getElementById('contadorProdutos');
-    if (!contador) return;
-
-    if (produtosFiltrados.length === 0) {
-        contador.innerHTML = '😔 Nenhum produto encontrado';
-    } else if (produtosFiltrados.length === 1) {
-        contador.innerHTML = '🎯 1 produto encontrado';
-    } else {
-        const inicio = (paginaAtual - 1) * produtosPorPagina + 1;
-        const fim = Math.min(paginaAtual * produtosPorPagina, produtosFiltrados.length);
-        contador.innerHTML = `🎯 Mostrando ${inicio}-${fim} de ${produtosFiltrados.length} produtos`;
+    if (contador) {
+        contador.textContent = `🎯 ${total} produto${total !== 1 ? 's' : ''} encontrado${total !== 1 ? 's' : ''}`;
     }
 }
 
-function atualizarFiltrosAtivos(termoBusca, categoria, faixaPreco) {
-    const container = document.getElementById('filtrosAtivos');
-    if (!container) return;
-
-    const filtros = [];
-
-    if (termoBusca) {
-        filtros.push({
-            texto: `Busca: "${termoBusca}"`,
-            remover: () => {
-                document.getElementById('searchInput').value = '';
-                filtrarProdutos();
-            }
-        });
+function atualizarEstadoVazio() {
+    const estadoVazio = document.getElementById('estadoVazio');
+    const container = document.getElementById('lojaProducts');
+    
+    if (produtosFiltrados.length === 0) {
+        if (estadoVazio) estadoVazio.classList.remove('hidden');
+        if (container) container.innerHTML = '';
+    } else {
+        if (estadoVazio) estadoVazio.classList.add('hidden');
     }
-
-    if (categoria) {
-        const categoriaNome = document.getElementById('filtroCategoria').options[document.getElementById('filtroCategoria').selectedIndex].text;
-        filtros.push({
-            texto: `Categoria: ${categoriaNome}`,
-            remover: () => {
-                document.getElementById('filtroCategoria').value = '';
-                filtrarProdutos();
-            }
-        });
-    }
-
-    if (faixaPreco) {
-        const precoTexto = document.getElementById('filtroPreco').options[document.getElementById('filtroPreco').selectedIndex].text;
-        filtros.push({
-            texto: `Preço: ${precoTexto}`,
-            remover: () => {
-                document.getElementById('filtroPreco').value = '';
-                filtrarProdutos();
-            }
-        });
-    }
-
-    if (filtros.length === 0) {
-        container.innerHTML = '';
-        return;
-    }
-
-    const html = `
-        <strong>Filtros ativos:</strong>
-        ${filtros.map(filtro => `
-            <span class="filtro-ativo">
-                ${filtro.texto}
-                <button onclick="${filtro.remover}" class="btn-remover-filtro">×</button>
-            </span>
-        `).join('')}
-    `;
-
-    container.innerHTML = html;
 }
 
 function limparFiltros() {
@@ -245,75 +121,28 @@ function limparFiltros() {
     document.getElementById('ordenacao').value = 'relevantes';
     
     filtrarProdutos();
-    showToast('Filtros limpos!', 'success');
 }
 
-function mudarVisualizacao(tipo) {
-    visualizacaoAtual = tipo;
-    
-    // Atualizar botões
-    document.querySelectorAll('.btn-visualizacao').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    event.target.classList.add('active');
-    
-    renderProdutosFiltrados();
+function getCategoryName(category) {
+    const categorias = {
+        'camisetas': '👕 Camisetas',
+        'calças': '👖 Calças',
+        'jaquetas': '🧥 Jaquetas',
+        'vestidos': '👗 Vestidos'
+    };
+    return categorias[category] || category;
 }
 
-function atualizarPaginacao() {
-    const container = document.getElementById('paginacao');
-    if (!container) return;
-
-    const totalPaginas = Math.ceil(produtosFiltrados.length / produtosPorPagina);
-    
-    if (totalPaginas <= 1) {
-        container.innerHTML = '';
-        return;
-    }
-
-    let html = '<div class="paginacao-container">';
-    
-    // Botão anterior
-    if (paginaAtual > 1) {
-        html += `<button class="btn-pagina" onclick="mudarPagina(${paginaAtual - 1})">← Anterior</button>`;
-    }
-    
-    // Páginas
-    for (let i = 1; i <= totalPaginas; i++) {
-        if (i === paginaAtual) {
-            html += `<button class="btn-pagina active">${i}</button>`;
-        } else {
-            html += `<button class="btn-pagina" onclick="mudarPagina(${i})">${i}</button>`;
-        }
-    }
-    
-    // Botão próximo
-    if (paginaAtual < totalPaginas) {
-        html += `<button class="btn-pagina" onclick="mudarPagina(${paginaAtual + 1})">Próximo →</button>`;
-    }
-    
-    html += '</div>';
-    container.innerHTML = html;
-}
-
-function mudarPagina(pagina) {
-    paginaAtual = pagina;
-    renderProdutosFiltrados();
-    atualizarContador();
-    atualizarPaginacao();
-    
-    // Scroll para topo dos produtos
-    const produtosContainer = document.querySelector('.products-container');
-    if (produtosContainer) {
-        produtosContainer.scrollIntoView({ behavior: 'smooth' });
-    }
-}
-
-// Inicializar quando documento carregar
+// Inicializar loja quando carregar
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(() => {
-        inicializarLoja();
-    }, 500);
+    console.log('🛍️ Inicializando loja...');
+    
+    // Carregar produtos e exibir inicialmente
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    produtosFiltrados = products;
+    
+    renderProdutosFiltrados();
+    atualizarContador(products.length);
+    
+    console.log('✅ loja.js carregado - Filtros prontos!');
 });
-
-console.log('✅ loja.js carregado');

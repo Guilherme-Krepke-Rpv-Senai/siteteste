@@ -24,71 +24,43 @@
                 <h2>Bem-vindo à STYLE CO.</h2>
                 <p>Moda minimalista com qualidade e personalidade</p>
                 <div class="hero-buttons">
-                    <button class="btn-primary" onclick="goToLoja()">Ver Produtos</button>
+                    <button class="btn-primary" onclick="goToLoja()">Ver Todos os Produtos</button>
                     <button class="btn-secondary" id="btnCadastrarProduto" onclick="goToCadastroProduto()" class="hidden">Cadastrar Produto</button>
                 </div>
             </div>
         </section>
 
-        <!-- Categorias em Destaque -->
-        <section class="destaque-categorias">
-            <div class="container">
-                <h2>🛍️ Nossas Categorias</h2>
-                <p style="text-align: center; color: var(--gray-600); margin-bottom: 2rem;">
-                    Explore nossas categorias mais populares
-                </p>
-                
-                <div class="categorias-grid" id="categoriasDestaque">
-                    <!-- Categorias serão carregadas via JavaScript -->
-                </div>
+        <!-- Categoria Mais Vendida>
+        <<section>
+            <h2>🏆 Categoria em Destaque</h2>
+            <div id="categoriaDestaque">
+                < Categoria será carregada via JavaScript >
+            </div>
+        </section>-->
+
+        <!-- Produtos em Destaque -->
+        <section>
+            <h2>🔥 Produtos em Alta</h2>
+            <div class="products-grid" id="produtosHome">
+                <!-- Produtos serão carregados via JavaScript -->
             </div>
         </section>
 
-        <!-- Produtos em Alta -->
-        <section class="produtos-alta">
-            <div class="container">
-                <h2>🔥 Produtos em Alta</h2>
-                <p style="text-align: center; color: var(--gray-600); margin-bottom: 2rem;">
-                    Descubra os produtos mais populares da nossa loja
-                </p>
-                
-                <div class="products-grid" id="produtosAlta">
-                    <!-- Produtos serão carregados via JavaScript -->
+        <!-- Benefícios -->
+        <section>
+            <h2>⭐ Por que escolher a STYLE CO.?</h2>
+            <div class="sobre-rapida">
+                <div class="card-info">
+                    <h4>🎯 Qualidade Premium</h4>
+                    <p>Roupas feitas com os melhores materiais</p>
                 </div>
-                
-                <div style="text-align: center; margin-top: 3rem;">
-                    <button class="btn-primary large" onclick="goToLoja()">
-                        🛍️ Ver Todos os Produtos
-                    </button>
+                <div class="card-info">
+                    <h4>💎 Preços Acessíveis</h4>
+                    <p>Moda de qualidade ao seu alcance</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Por que escolher a STYLE CO.? -->
-        <section class="beneficios">
-            <div class="container">
-                <h2>⭐ Por que escolher a STYLE CO.?</h2>
-                <div class="sobre-rapida">
-                    <div class="card-info">
-                        <div class="beneficio-icon">🎯</div>
-                        <h4>Qualidade Premium</h4>
-                        <p>Roupas feitas com os melhores materiais e acabamento impecável</p>
-                    </div>
-                    <div class="card-info">
-                        <div class="beneficio-icon">💎</div>
-                        <h4>Preços Acessíveis</h4>
-                        <p>Moda de qualidade ao seu alcance, sem comprometer o estilo</p>
-                    </div>
-                    <div class="card-info">
-                        <div class="beneficio-icon">🚚</div>
-                        <h4>Entrega Rápida</h4>
-                        <p>Receba seu pedido em poucos dias com frete grátis acima de R$ 200</p>
-                    </div>
-                    <div class="card-info">
-                        <div class="beneficio-icon">🔒</div>
-                        <h4>Compra Segura</h4>
-                        <p>Seus dados protegidos e processo de compra 100% seguro</p>
-                    </div>
+                <div class="card-info">
+                    <h4>🚚 Entrega Rápida</h4>
+                    <p>Receba seu pedido em poucos dias</p>
                 </div>
             </div>
         </section>
@@ -99,6 +71,5 @@
     <script src="js/main.js"></script>
     <script src="js/produto.js"></script>
     <script src="js/carrossel.js"></script>
-    <script src="js/home.js"></script>
 </body>
 </html>
