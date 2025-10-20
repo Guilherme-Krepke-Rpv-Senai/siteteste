@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Vendedor - STYLE CO.</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/responsivo.css">
+</head>
+<body>
+    <header id="header"></header>
+    
+    <main>
+        <section>
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <div class="page-header">
+                    <h2>🏪 Painel do Vendedor</h2>
+                    <p style="color: var(--gray-600); text-align: center;">
+                        Gerencie seus produtos e acompanhe suas vendas
+                    </p>
+                </div>
+
+                <div class="vendedor-container">
+                    <div class="vendedor-header">
+                        <div>
+                            <h3>📦 Meus Produtos</h3>
+                            <p style="color: var(--gray-600); margin-top: 0.5rem;">
+                                Gerencie seu catálogo de produtos
+                            </p>
+                        </div>
+                        <button class="btn-primary large" onclick="goToCadastroProduto()">
+                            ➕ Novo Produto
+                        </button>
+                    </div>
+
+                    <div class="vendedor-actions">
+                        <button class="btn-secondary" onclick="loadProducts(); renderVendedorProducts();">
+                            🔄 Atualizar
+                        </button>
+                        <button class="btn-secondary" onclick="exportProducts()">
+                            📤 Exportar
+                        </button>
+                    </div>
+
+                    <div id="vendedorProducts" class="vendedor-products-container">
+                        <!-- Os produtos serão carregados aqui via JavaScript -->
+                        <div class="loading-state">
+                            <p>⏳ Carregando seus produtos...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vendedor-help">
+                    <h4>🎯 Como vender mais:</h4>
+                    <div class="help-tips">
+                        <div class="tip-card">
+                            <span>🖼️</span>
+                            <h5>Boas Imagens</h5>
+                            <p>Use fotos profissionais e claras</p>
+                        </div>
+                        <div class="tip-card">
+                            <span>📝</span>
+                            <h5>Descrições Detalhadas</h5>
+                            <p>Descreva bem materiais e medidas</p>
+                        </div>
+                        <div class="tip-card">
+                            <span>💰</span>
+                            <h5>Preços Competitivos</h5>
+                            <p>Pesquise preços do mercado</p>
+                        </div>
+                        <div class="tip-card">
+                            <span>🚚</span>
+                            <h5>Entrega Rápida</h5>
+                            <p>Entregue rápido para melhor avaliação</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer id="footer"></footer>
+    
+    <script src="js/main.js"></script>
+    <script src="js/produto.js"></script>
+</body>
+</html>

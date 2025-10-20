@@ -4,289 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login / Cadastro - STYLE CO.</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/responsivo.css">
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <div class="header-content">
-            <h1 class="logo" onclick="goToHome()">STYLE CO.</h1>
-            
-            <nav class="nav-desktop">
-                <button onclick="goToHome()">Home</button>
-                <button onclick="goToLoja()">Loja</button>
-                <button onclick="window.location.href='./logincad.html'">Cadastrar</button>
-                <button onclick="goToSobre()">Sobre</button>
-            </nav>
-
-            <div class="header-right">
-                <button class="theme-btn" onclick="toggleDarkMode()">🌙</button>
-                <button class="cart-btn" onclick="window.location.href='./carrinho.html'">
-                    🛒
-                    <span class="cart-badge" id="cartBadge" class="hidden">0</span>
-                </button>
-                <div id="userInfo" class="user-info hidden">
-                    <span id="userName"></span>
-                    <button onclick="logout()" class="btn-logout">Sair</button>
-                </div>
-                <button id="btnLogin" class="btn-login" onclick="window.location.href='./logincad.html'">Login</button>
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-            </div>
-        </div>
-
-        <nav class="nav-mobile" id="mobileMenu">
-            <button onclick="goToHome(); toggleMobileMenu()">Home</button>
-            <button onclick="goToLoja(); toggleMobileMenu()">Loja</button>
-            <button onclick="window.location.href='./logincad.html'; toggleMobileMenu()">Cadastrar</button>
-            <button onclick="goToSobre(); toggleMobileMenu()">Sobre</button>
-        </nav>
-    </header>
-
-    <!-- MAIN -->
+    <header id="header"></header>
+    
     <main>
-        <section>
-            <h2>Login / Cadastro</h2>
-            <div class="login-container">
-                <div class="login-tabs">
-                    <button class="tab-btn active" onclick="switchTab('tab-login')">Login</button>
-                    <button class="tab-btn" onclick="switchTab('tab-cadastro')">Cadastro</button>
-                </div>
-
-                <!-- LOGIN -->
-                <div id="tab-login" class="tab-content active">
-                    <div class="form-container">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="loginEmail" placeholder="seu@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label>Senha</label>
-                            <input type="password" id="loginPassword" placeholder="Sua senha">
-                        </div>
-                        <button class="btn-primary" onclick="handleLogin()">Entrar</button>
+        <section style="min-height: 80vh; display: flex; align-items: center;">
+            <div style="width: 100%; max-width: 500px; margin: 0 auto;">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Acesse Sua Conta</h2>
+                
+                <div class="login-container">
+                    <div class="login-tabs">
+                        <button class="tab-btn active" onclick="switchTab('tab-login')">Login</button>
+                        <button class="tab-btn" onclick="switchTab('tab-cadastro')">Cadastro</button>
                     </div>
-                </div>
-
-                <!-- CADASTRO -->
-                <div id="tab-cadastro" class="tab-content">
-                    <div class="form-container">
-                        <div class="form-group">
-                            <label>Nome Completo</label>
-                            <input type="text" id="cadastroNome" placeholder="Seu nome">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="cadastroEmail" placeholder="seu@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label>Senha</label>
-                            <input type="password" id="cadastroPassword" placeholder="Mínimo 6 caracteres">
-                        </div>
-                        <div class="form-group">
-                            <label>Confirmar Senha</label>
-                            <input type="password" id="cadastroPasswordConfirm" placeholder="Confirme sua senha">
-                        </div>
-                        <div class="form-group">
-                            <label>Tipo de Conta</label>
-                            <select id="tipoConta">
-                                <option value="cliente">Cliente</option>
-                                <option value="vendedor">Vendedor</option>
-                            </select>
-                        </div>
-                        <button class="btn-primary" onclick="handleCadastro()">Criar Conta</button>
+                    
+                    <!-- ABA LOGIN -->
+                    <div id="tab-login" class="tab-content active">
+                        <form onsubmit="event.preventDefault(); handleLogin();">
+                            <div class="form-container">
+                                <div class="form-group">
+                                    <label for="loginEmail">Email</label>
+                                    <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="loginPassword">Senha</label>
+                                    <input type="password" id="loginPassword" placeholder="Sua senha" required>
+                                </div>
+                                
+                                <div style="text-align: center; margin: 1rem 0;">
+                                    <small style="color: var(--gray-600);">
+                                        🔐 Use: <strong>admin@styleco.com</strong> / <strong>123456</strong> para vendedor<br>
+                                        ou <strong>cliente@styleco.com</strong> / <strong>123456</strong> para cliente
+                                    </small>
+                                </div>
+                                
+                                <button type="submit" class="btn-submit" style="width: 100%;">
+                                    Entrar na Conta
+                                </button>
+                                
+                                <div style="text-align: center; margin-top: 1rem;">
+                                    <small style="color: var(--gray-600);">
+                                        ⚡ Login rápido com os usuários de teste acima
+                                    </small>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- ABA CADASTRO -->
+                    <div id="tab-cadastro" class="tab-content">
+                        <form onsubmit="event.preventDefault(); handleCadastro();">
+                            <div class="form-container">
+                                <div class="form-group">
+                                    <label for="cadastroNome">Nome Completo</label>
+                                    <input type="text" id="cadastroNome" placeholder="Seu nome completo" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="cadastroEmail">Email</label>
+                                    <input type="email" id="cadastroEmail" placeholder="seu@email.com" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="cadastroPassword">Senha</label>
+                                    <input type="password" id="cadastroPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="cadastroPasswordConfirm">Confirmar Senha</label>
+                                    <input type="password" id="cadastroPasswordConfirm" placeholder="Digite novamente sua senha" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="tipoConta">Tipo de Conta</label>
+                                    <select id="tipoConta" required>
+                                        <option value="cliente">👤 Cliente - Comprar produtos</option>
+                                        <option value="vendedor">🏪 Vendedor - Vender produtos</option>
+                                    </select>
+                                    <small style="color: var(--gray-600); margin-top: 0.5rem; display: block;">
+                                        💡 Como vendedor você poderá cadastrar e gerenciar seus produtos
+                                    </small>
+                                </div>
+                                
+                                <button type="submit" class="btn-submit" style="width: 100%;">
+                                    Criar Minha Conta
+                                </button>
+                                
+                                <div style="text-align: center; margin-top: 1rem;">
+                                    <small style="color: var(--gray-600);">
+                                        ✅ Ao cadastrar, você concorda com nossos termos de uso
+                                    </small>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2024 STYLE CO. - Todos os direitos reservados.</p>
-        <p>Desenvolvido com ❤️ | Moda, qualidade e estilo</p>
-    </footer>
-
-    <script>
-        let users = [];
-
-        // Carregar usuários do localStorage
-        function loadUsers() {
-            const savedUsers = JSON.parse(localStorage.getItem('users')) || [];
-            users = savedUsers;
-            loadCurrentUser();
-        }
-
-        // Carregar usuário atual se estiver logado
-        function loadCurrentUser() {
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
-                const user = JSON.parse(savedUser);
-                document.getElementById('btnLogin').classList.add('hidden');
-                document.getElementById('userInfo').classList.remove('hidden');
-                document.getElementById('userName').textContent = `Olá, ${user.nome}`;
-            }
-        }
-
-        // Carregar cart badge
-        function updateCartBadge() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const badge = document.getElementById('cartBadge');
-            if (cart.length > 0) {
-                badge.innerHTML = cart.length;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
-        }
-
-        // Validar força da senha
-        function validatePassword(password) {
-            return password.length >= 6;
-        }
-
-        // Switch de abas no login
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // Handle Login
-        function handleLogin() {
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-
-            if (!email || !password) {
-                alert('❌ Preencha todos os campos!');
-                return;
-            }
-
-            const user = users.find(u => u.email === email && u.password === password);
-
-            if (user) {
-                const currentUser = { email: user.email, nome: user.nome, tipo: user.tipo };
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                alert('✅ Login realizado com sucesso! Bem-vindo, ' + user.nome + '!');
-                
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
-                
-                updateUI();
-                setTimeout(() => {
-                    window.location.href = './index.html';
-                }, 1500);
-            } else {
-                alert('❌ Email ou senha incorretos!');
-            }
-        }
-
-        // Handle Cadastro
-        function handleCadastro() {
-            const nome = document.getElementById('cadastroNome').value.trim();
-            const email = document.getElementById('cadastroEmail').value.trim();
-            const password = document.getElementById('cadastroPassword').value;
-            const passwordConfirm = document.getElementById('cadastroPasswordConfirm').value;
-            const tipo = document.getElementById('tipoConta').value;
-
-            if (!nome || !email || !password || !passwordConfirm) {
-                alert('❌ Preencha todos os campos!');
-                return;
-            }
-
-            if (!validatePassword(password)) {
-                alert('❌ Senha deve ter no mínimo 6 caracteres!');
-                return;
-            }
-
-            if (password !== passwordConfirm) {
-                alert('❌ As senhas não conferem!');
-                return;
-            }
-
-            // Validar email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('❌ Email inválido!');
-                return;
-            }
-
-            // Verificar se email já existe
-            if (users.find(u => u.email === email)) {
-                alert('❌ Este email já está cadastrado!');
-                return;
-            }
-
-            // Criar novo usuário
-            const newUser = { nome, email, password, tipo, dataCadastro: new Date().toLocaleDateString() };
-            users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
-
-            alert('✅ Cadastro realizado com sucesso! Faça login para continuar.');
-            
-            document.getElementById('cadastroNome').value = '';
-            document.getElementById('cadastroEmail').value = '';
-            document.getElementById('cadastroPassword').value = '';
-            document.getElementById('cadastroPasswordConfirm').value = '';
-            
-            switchTab('tab-login');
-        }
-
-        // Atualizar UI
-        function updateUI() {
-            const btnLogin = document.getElementById('btnLogin');
-            const userInfo = document.getElementById('userInfo');
-
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            if (currentUser) {
-                btnLogin.classList.add('hidden');
-                userInfo.classList.remove('hidden');
-                document.getElementById('userName').textContent = `Olá, ${currentUser.nome}`;
-            } else {
-                btnLogin.classList.remove('hidden');
-                userInfo.classList.add('hidden');
-            }
-        }
-
-        // Logout
-        function logout() {
-            localStorage.removeItem('currentUser');
-            updateUI();
-            window.location.href = './index.html';
-        }
-
-        // DARK MODE
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
-        }
-
-        // MOBILE MENU
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('active');
-        }
-
-        // NAVEGAÇÃO
-        function goToHome() {
-            window.location.href = './index.html';
-        }
-
-        function goToLoja() {
-            window.location.href = './index.html';
-        }
-
-        function goToSobre() {
-            window.location.href = './index.html';
-        }
-
-        // INICIALIZAR
-        document.addEventListener('DOMContentLoaded', () => {
-            loadUsers();
-            updateCartBadge();
-            if (localStorage.getItem('darkMode') === 'true') {
-                document.body.classList.add('dark');
-            }
-        });
-    </script>
+    
+    <footer id="footer"></footer>
+    
+    <script src="js/main.js"></script>
+    <script src="js/usuario.js"></script>
 </body>
 </html>

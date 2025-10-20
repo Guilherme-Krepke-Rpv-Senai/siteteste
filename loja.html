@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja - STYLE CO.</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/responsivo.css">
+</head>
+<body>
+    <header id="header"></header>
+    
+    <main>
+        <section class="loja-page">
+            <div class="container">
+                <h2>🛒 Nossa Loja Completa</h2>
+                <p style="text-align: center; color: var(--gray-600); margin-bottom: 2rem;">
+                    Descubra todos os nossos produtos com filtros avançados
+                </p>
+
+                <!-- Sistema de Filtros Avançados -->
+                <div class="filtros-avancados">
+                    <div class="filtro-header">
+                        <h3>🔍 Filtros e Ordenação</h3>
+                        <button class="btn-limpar-filtros" onclick="limparFiltros()">
+                            🗑️ Limpar Filtros
+                        </button>
+                    </div>
+
+                    <div class="filtros-grid">
+                        <!-- Busca por Nome -->
+                        <div class="filtro-group">
+                            <label>🔎 Buscar Produto</label>
+                            <input type="text" id="searchInput" placeholder="Digite o nome do produto..." 
+                                   oninput="filtrarProdutos()">
+                        </div>
+
+                        <!-- Filtro por Categoria -->
+                        <div class="filtro-group">
+                            <label>📂 Categoria</label>
+                            <select id="filtroCategoria" onchange="filtrarProdutos()">
+                                <option value="">Todas as categorias</option>
+                                <option value="camisetas">👕 Camisetas</option>
+                                <option value="calças">👖 Calças</option>
+                                <option value="jaquetas">🧥 Jaquetas</option>
+                                <option value="vestidos">👗 Vestidos</option>
+                                <option value="acessorios">🕶️ Acessórios</option>
+                                <option value="calcados">👟 Calçados</option>
+                            </select>
+                        </div>
+
+                        <!-- Filtro por Preço -->
+                        <div class="filtro-group">
+                            <label>💰 Faixa de Preço</label>
+                            <select id="filtroPreco" onchange="filtrarProdutos()">
+                                <option value="">Todos os preços</option>
+                                <option value="0-50">Até R$ 50</option>
+                                <option value="50-100">R$ 50 - R$ 100</option>
+                                <option value="100-200">R$ 100 - R$ 200</option>
+                                <option value="200-500">R$ 200 - R$ 500</option>
+                                <option value="500+">Acima de R$ 500</option>
+                            </select>
+                        </div>
+
+                        <!-- Ordenação -->
+                        <div class="filtro-group">
+                            <label>📊 Ordenar por</label>
+                            <select id="ordenacao" onchange="filtrarProdutos()">
+                                <option value="relevantes">Mais Relevantes</option>
+                                <option value="menor-preco">Menor Preço</option>
+                                <option value="maior-preco">Maior Preço</option>
+                                <option value="nome-az">Nome A-Z</option>
+                                <option value="nome-za">Nome Z-A</option>
+                                <option value="novos">Mais Novos</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Filtros Ativos -->
+                    <div id="filtrosAtivos" class="filtros-ativos"></div>
+                </div>
+
+                <!-- Estatísticas de Resultados -->
+                <div class="resultados-info">
+                    <div id="contadorProdutos" class="contador-produtos">
+                        🎯 Carregando produtos...
+                    </div>
+                    <div class="visualizacao-toggle">
+                        <button class="btn-visualizacao active" onclick="mudarVisualizacao('grid')">
+                            ⬜ Grid
+                        </button>
+                        <button class="btn-visualizacao" onclick="mudarVisualizacao('lista')">
+                            📋 Lista
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lista de Produtos -->
+                <div class="products-container">
+                    <div class="products-grid" id="lojaProducts">
+                        <!-- Produtos serão carregados via JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Paginação -->
+                <div class="paginacao" id="paginacao">
+                    <!-- Paginação será gerada via JavaScript -->
+                </div>
+
+                <!-- Estado Vazio -->
+                <div id="estadoVazio" class="empty-state hidden">
+                    <p>😔 Nenhum produto encontrado com os filtros selecionados</p>
+                    <button class="btn-voltar-loja" onclick="limparFiltros()">
+                        Ver Todos os Produtos
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer id="footer"></footer>
+    
+    <script src="js/main.js"></script>
+    <script src="js/produto.js"></script>
+    <script src="js/loja.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Produto - STYLE CO.</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/responsivo.css">
+</head>
+<body>
+    <header id="header"></header>
+    
+    <main>
+        <section>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <button class="btn-voltar" onclick="goToVendedorPainel()">← Voltar ao Painel</button>
+                
+                <div class="page-header">
+                    <h2>📦 Cadastrar Novo Produto</h2>
+                    <p style="color: var(--gray-600); text-align: center; margin-bottom: 2rem;">
+                        Preencha os dados do seu produto para começar a vender
+                    </p>
+                </div>
+
+                <div class="form-container">
+                    <form onsubmit="event.preventDefault(); addProduct();">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="prodName">📝 Nome do Produto *</label>
+                                <input type="text" id="prodName" placeholder="Ex: Camiseta Básica Premium" required minlength="2">
+                                <small class="form-help">Nome claro e descritivo do produto</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prodPrice">💰 Preço *</label>
+                                <input type="number" id="prodPrice" placeholder="Ex: 79.90" step="0.01" min="0.01" required>
+                                <small class="form-help">Preço em reais (use ponto para centavos)</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prodCategory">📂 Categoria *</label>
+                                <select id="prodCategory" required>
+                                    <option value="">Selecione uma categoria</option>
+                                    <option value="camisetas">👕 Camisetas</option>
+                                    <option value="calças">👖 Calças</option>
+                                    <option value="jaquetas">🧥 Jaquetas</option>
+                                    <option value="vestidos">👗 Vestidos</option>
+                                    <option value="acessorios">🕶️ Acessórios</option>
+                                    <option value="calcados">👟 Calçados</option>
+                                </select>
+                                <small class="form-help">Categoria ajuda os clientes a encontrar seu produto</small>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="prodDesc">📄 Descrição do Produto *</label>
+                                <textarea id="prodDesc" placeholder="Descreva seu produto detalhadamente... 
+• Material
+• Tamanhos disponíveis
+• Cores
+• Características especiais" required minlength="10" rows="4"></textarea>
+                                <small class="form-help">Descrição detalhada aumenta as chances de venda</small>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>🖼️ Imagem do Produto</label>
+                                <div class="file-input-wrapper">
+                                    <label class="file-input-label">
+                                        <div class="file-input-text">📸 Clique ou arraste uma imagem</div>
+                                        <div class="file-input-subtext">Formatos: JPG, PNG, GIF (Máx. 5MB)</div>
+                                        <input type="file" id="prodImage" accept="image/*" onchange="previewImage(event)">
+                                    </label>
+                                    <img id="imagePreview" class="preview-image hidden" alt="Preview da imagem">
+                                </div>
+                                <small class="form-help">Produtos com imagem vendem 80% mais!</small>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-submit large">
+                                🚀 Cadastrar Produto
+                            </button>
+                            <button type="button" class="btn-secondary" onclick="goToVendedorPainel()">
+                                ↩️ Cancelar
+                            </button>
+                        </div>
+
+                        <div class="form-tips">
+                            <h4>💡 Dicas para um bom anúncio:</h4>
+                            <ul>
+                                <li>Use fotos claras e de boa qualidade</li>
+                                <li>Descreva bem os materiais e medidas</li>
+                                <li>Preço competitivo atrai mais clientes</li>
+                                <li>Categorize corretamente seu produto</li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer id="footer"></footer>
+    
+    <script src="js/main.js"></script>
+    <script src="js/produto.js"></script>
+</body>
+</html>

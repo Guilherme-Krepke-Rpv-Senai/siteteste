@@ -4,576 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STYLE CO. - Loja de Roupas</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/responsivo.css">
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <div class="header-content">
-            <h1 class="logo" onclick="goToHome()">STYLE CO.</h1>
-            
-            <nav class="nav-desktop">
-                <button onclick="goToHome()">Home</button>
-                <button onclick="showPage('loja')">Loja</button>
-                <button id="navCadastro" onclick="showPage('cadastro')" class="hidden">Cadastrar</button>
-                <button id="navVendedor" onclick="showPage('vendedor')" class="hidden">Painel</button>
-                <button onclick="showPage('sobre')">Sobre</button>
-            </nav>
-
-            <div class="header-right">
-                <button class="theme-btn" onclick="toggleDarkMode()">🌙</button>
-                <button class="cart-btn" onclick="window.location.href='carrinho.html'">
-                    🛒
-                    <span class="cart-badge" id="cartBadge" class="hidden">0</span>
-                </button>
-                <div id="userInfo" class="user-info hidden">
-                    <span id="userName"></span>
-                    <button onclick="logout()" class="btn-logout">Sair</button>
-                </div>
-                <button id="btnLogin" class="btn-login" onclick="window.location.href='logincad.html'">Login</button>
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-            </div>
-        </div>
-
-        <nav class="nav-mobile" id="mobileMenu">
-            <button onclick="goToHome(); toggleMobileMenu()">Home</button>
-            <button onclick="showPage('loja'); toggleMobileMenu()">Loja</button>
-            <button id="navCadastroMobile" onclick="showPage('cadastro'); toggleMobileMenu()" class="hidden">Cadastrar</button>
-            <button id="navVendedorMobile" onclick="showPage('vendedor'); toggleMobileMenu()" class="hidden">Painel</button>
-            <button onclick="showPage('sobre'); toggleMobileMenu()">Sobre</button>
-        </nav>
-    </header>
-
-    <!-- MAIN -->
+    <header id="header"></header>
+    
     <main>
-        <!-- HOME PAGE -->
-        <div id="home" class="page">
-            <!-- HERO COM CARROSSEL -->
-            <section class="hero" id="heroSection">
-                <div class="hero-carousel-container">
-                    <div class="hero-carousel" id="heroCarousel"></div>
-                    <button class="carousel-btn prev" onclick="prevSlide()">❮</button>
-                    <button class="carousel-btn next" onclick="nextSlide()">❯</button>
-                    <div class="carousel-dots" id="carouselDots"></div>
+        <!-- Hero Section com Carrossel -->
+        <section class="hero" id="heroSection">
+            <div class="hero-carousel-container">
+                <div class="hero-carousel" id="heroCarousel"></div>
+                <button class="carousel-btn prev" onclick="prevSlide()">←</button>
+                <button class="carousel-btn next" onclick="nextSlide()">→</button>
+                <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+            <div class="hero-content">
+                <h2>Bem-vindo à STYLE CO.</h2>
+                <p>Moda minimalista com qualidade e personalidade</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="goToLoja()">Ver Produtos</button>
+                    <button class="btn-secondary" id="btnCadastrarProduto" onclick="goToCadastroProduto()" class="hidden">Cadastrar Produto</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categorias em Destaque -->
+        <section class="destaque-categorias">
+            <div class="container">
+                <h2>🛍️ Nossas Categorias</h2>
+                <p style="text-align: center; color: var(--gray-600); margin-bottom: 2rem;">
+                    Explore nossas categorias mais populares
+                </p>
+                
+                <div class="categorias-grid" id="categoriasDestaque">
+                    <!-- Categorias serão carregadas via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Produtos em Alta -->
+        <section class="produtos-alta">
+            <div class="container">
+                <h2>🔥 Produtos em Alta</h2>
+                <p style="text-align: center; color: var(--gray-600); margin-bottom: 2rem;">
+                    Descubra os produtos mais populares da nossa loja
+                </p>
+                
+                <div class="products-grid" id="produtosAlta">
+                    <!-- Produtos serão carregados via JavaScript -->
                 </div>
                 
-                <div class="hero-content">
-                    <h2>Bem-vindo à STYLE CO.</h2>
-                    <p>Moda minimalista com qualidade e personalidade</p>
-                    <div class="hero-buttons">
-                        <button class="btn-primary" onclick="showPage('loja')">Ver Produtos</button>
-                        <button class="btn-secondary" id="btnCadastrarProduto" onclick="showPage('cadastro')" class="hidden">Cadastrar Produto</button>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <button class="btn-primary large" onclick="goToLoja()">
+                        🛍️ Ver Todos os Produtos
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Por que escolher a STYLE CO.? -->
+        <section class="beneficios">
+            <div class="container">
+                <h2>⭐ Por que escolher a STYLE CO.?</h2>
+                <div class="sobre-rapida">
+                    <div class="card-info">
+                        <div class="beneficio-icon">🎯</div>
+                        <h4>Qualidade Premium</h4>
+                        <p>Roupas feitas com os melhores materiais e acabamento impecável</p>
+                    </div>
+                    <div class="card-info">
+                        <div class="beneficio-icon">💎</div>
+                        <h4>Preços Acessíveis</h4>
+                        <p>Moda de qualidade ao seu alcance, sem comprometer o estilo</p>
+                    </div>
+                    <div class="card-info">
+                        <div class="beneficio-icon">🚚</div>
+                        <h4>Entrega Rápida</h4>
+                        <p>Receba seu pedido em poucos dias com frete grátis acima de R$ 200</p>
+                    </div>
+                    <div class="card-info">
+                        <div class="beneficio-icon">🔒</div>
+                        <h4>Compra Segura</h4>
+                        <p>Seus dados protegidos e processo de compra 100% seguro</p>
                     </div>
                 </div>
-            </section>
-
-            <section>
-                <h3>Destaque de Produtos</h3>
-                <div class="products-grid" id="destaqueProducts"></div>
-            </section>
-        </div>
-
-        <!-- LOJA PAGE -->
-        <div id="loja" class="page hidden">
-            <section>
-                <h2>Nossa Loja</h2>
-                <div class="filtros">
-                    <button class="filter-btn active" onclick="filterProducts('todos')">Todos</button>
-                    <button class="filter-btn" onclick="filterProducts('camisetas')">Camisetas</button>
-                    <button class="filter-btn" onclick="filterProducts('calças')">Calças</button>
-                    <button class="filter-btn" onclick="filterProducts('jaquetas')">Jaquetas</button>
-                    <button class="filter-btn" onclick="filterProducts('vestidos')">Vestidos</button>
-                </div>
-                <div class="products-grid" id="lojaProducts"></div>
-            </section>
-        </div>
-
-        <!-- CADASTRO PAGE -->
-        <div id="cadastro" class="page hidden">
-            <section>
-                <h2>Cadastrar Produto</h2>
-                <div class="form-container">
-                    <div class="form-group">
-                        <label>Nome do Produto</label>
-                        <input type="text" id="prodName" placeholder="Ex: Camiseta">
-                    </div>
-                    <div class="form-group">
-                        <label>Preço</label>
-                        <input type="number" id="prodPrice" placeholder="Ex: 79.90" step="0.01">
-                    </div>
-                    <div class="form-group">
-                        <label>Categoria</label>
-                        <select id="prodCategory">
-                            <option value="camisetas">Camisetas</option>
-                            <option value="calças">Calças</option>
-                            <option value="jaquetas">Jaquetas</option>
-                            <option value="vestidos">Vestidos</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Descrição</label>
-                        <textarea id="prodDesc" placeholder="Descrição do produto"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Imagem do Produto</label>
-                        <div class="file-input-wrapper">
-                            <label class="file-input-label">
-                                <div class="file-input-text">📸 Clique ou arraste uma imagem</div>
-                                <div class="file-input-subtext">PNG, JPG ou GIF (máx. 5MB)</div>
-                                <input type="file" id="prodImage" accept="image/*" onchange="previewImage(event)">
-                            </label>
-                            <img id="imagePreview" class="preview-image hidden">
-                        </div>
-                    </div>
-                    <button class="btn-submit" onclick="addProduct()">Cadastrar Produto</button>
-                </div>
-            </section>
-        </div>
-
-        <!-- PAINEL VENDEDOR -->
-        <div id="vendedor" class="page hidden">
-            <section>
-                <h2>Painel do Vendedor</h2>
-                <div class="vendedor-container">
-                    <h3>Seus Produtos</h3>
-                    <div class="products-list" id="vendedorProducts"></div>
-                </div>
-            </section>
-        </div>
-
-        <!-- DETALHES PAGE -->
-        <div id="detalhes" class="page hidden">
-            <section>
-                <button class="btn-voltar" onclick="showPage('loja')">← Voltar</button>
-                <div class="detalhes-container">
-                    <div class="detalhes-image" id="detImage"></div>
-                    <div class="detalhes-info">
-                        <h2 id="detName"></h2>
-                        <p class="product-desc" id="detDesc"></p>
-                        <p class="price" id="detPrice"></p>
-                        <div class="detalhes-actions">
-                            <button class="btn-comprar" onclick="addToCartFromDetail()">Comprar Agora</button>
-                            <button class="btn-primary" onclick="showPage('loja')">Continuar Shopping</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- SOBRE PAGE -->
-        <div id="sobre" class="page hidden">
-            <section>
-                <h2>Sobre a STYLE CO.</h2>
-                <div class="sobre-container">
-                    <p>A STYLE CO. é uma loja minimalista dedicada a oferecer moda de qualidade com personalidade. Acreditamos que estilo é acessível e que cada peça deve contar uma história.</p>
-                    <p>Nossa missão é trazer peças sofisticadas que combinam conforto, qualidade e design moderno para o seu dia a dia.</p>
-                    
-                    <div class="sobre-section">
-                        <h3>Conecte-se Conosco</h3>
-                        <div class="social-links">
-                            <button class="social-btn facebook">Facebook</button>
-                            <button class="social-btn instagram">Instagram</button>
-                            <button class="social-btn twitter">Twitter</button>
-                        </div>
-                    </div>
-
-                    <div class="sobre-section">
-                        <h3>Entre em Contato</h3>
-                        <div class="form-container">
-                            <div class="form-group">
-                                <label>Seu Nome</label>
-                                <input type="text" placeholder="Nome">
-                            </div>
-                            <div class="form-group">
-                                <label>Seu Email</label>
-                                <input type="email" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <label>Mensagem</label>
-                                <textarea placeholder="Sua mensagem"></textarea>
-                            </div>
-                            <button class="btn-submit">Enviar Mensagem</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </main>
-
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2024 STYLE CO. - Todos os direitos reservados.</p>
-        <p>Desenvolvido com ❤️ | Moda, qualidade e estilo</p>
-    </footer>
-
-    <script>
-        let currentUser = null;
-        let users = [];
-        let products = [
-            { id: 1, name: 'Camiseta Premium', price: 79.90, category: 'camisetas', image: '👕', description: 'Camiseta de algodão 100% confortável', vendedor: 'admin' },
-            { id: 2, name: 'Calça Jeans', price: 129.90, category: 'calças', image: '👖', description: 'Calça jeans clássica de qualidade', vendedor: 'admin' },
-            { id: 3, name: 'Jaqueta Bomber', price: 199.90, category: 'jaquetas', image: '🧥', description: 'Jaqueta bomber moderna e versátil', vendedor: 'admin' },
-            { id: 4, name: 'Vestido Casual', price: 159.90, category: 'vestidos', image: '👗', description: 'Vestido leve perfeito para o dia a dia', vendedor: 'admin' },
-        ];
-        let cart = [];
-        let currentFilter = 'todos';
-        let selectedProduct = null;
-        let currentSlide = 0;
-
-        const carouselImages = [
-            'imagenscarrossel/img1.jpg',
-            'imagenscarrossel/img2.jpg',
-            'imagenscarrossel/img3.jpg',
-            'imagenscarrossel/img4.jpg'
-        ];
-
-        function initCarousel() {
-            const carousel = document.getElementById('heroCarousel');
-            const dots = document.getElementById('carouselDots');
-            
-            carousel.innerHTML = '';
-            dots.innerHTML = '';
-            
-            carouselImages.forEach((img, index) => {
-                const slide = document.createElement('div');
-                slide.className = `carousel-slide ${index === 0 ? 'active' : ''}`;
-                slide.style.backgroundImage = `url('${img}')`;
-                carousel.appendChild(slide);
-
-                const dot = document.createElement('button');
-                dot.className = `dot ${index === 0 ? 'active' : ''}`;
-                dot.onclick = () => goToSlide(index);
-                dots.appendChild(dot);
-            });
-
-            setInterval(autoSlide, 5000);
-        }
-
-        function showSlide(n) {
-            const slides = document.querySelectorAll('.carousel-slide');
-            const dots = document.querySelectorAll('.dot');
-            
-            if (n >= slides.length) currentSlide = 0;
-            if (n < 0) currentSlide = slides.length - 1;
-            
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
-        }
-
-        function nextSlide() {
-            currentSlide++;
-            showSlide(currentSlide);
-        }
-
-        function prevSlide() {
-            currentSlide--;
-            showSlide(currentSlide);
-        }
-
-        function goToSlide(n) {
-            currentSlide = n;
-            showSlide(currentSlide);
-        }
-
-        function autoSlide() {
-            nextSlide();
-        }
-
-        function loadUsers() {
-            users = JSON.parse(localStorage.getItem('users')) || [];
-        }
-
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            updateUI();
-            showPage('home');
-        }
-
-        function loadData() {
-            const savedProducts = localStorage.getItem('products');
-            const savedCart = localStorage.getItem('cart');
-            if (savedProducts) products = JSON.parse(savedProducts);
-            if (savedCart) cart = JSON.parse(savedCart);
-            
-            updateCartBadge();
-            renderAllProducts();
-            renderVendedorProducts();
-            loadUsers();
-            
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) currentUser = JSON.parse(savedUser);
-            
-            updateUI();
-        }
-
-        function saveData() {
-            localStorage.setItem('products', JSON.stringify(products));
-            localStorage.setItem('cart', JSON.stringify(cart));
-        }
-
-        function showPage(pageName) {
-            if (pageName === 'cadastro' || pageName === 'vendedor') {
-                if (!currentUser || currentUser.tipo !== 'vendedor') {
-                    alert('Apenas vendedores podem acessar esta página!');
-                    return;
-                }
-            }
-            
-            document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
-            document.getElementById(pageName).classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
-
-        function goToHome() {
-            window.location.href = 'index.html';
-        }
-
-        function renderProducts(containerId, productsToRender) {
-            const html = productsToRender.map(p => `
-                <div class="product-card">
-                    <div class="product-image" onclick="viewProduct(${p.id})">
-                        ${p.isImage ? `<img src="${p.image}" alt="${p.name}">` : p.image}
-                    </div>
-                    <h4>${p.name}</h4>
-                    <p class="product-desc">${p.description}</p>
-                    <p class="price">R$ ${p.price.toFixed(2)}</p>
-                    <div class="product-actions">
-                        <button class="btn-details" onclick="viewProduct(${p.id})">Detalhes</button>
-                        <button class="btn-add" onclick="addToCart(${p.id})">+</button>
-                    </div>
-                </div>
-            `).join('');
-            document.getElementById(containerId).innerHTML = html;
-        }
-
-        function renderAllProducts() {
-            renderProducts('destaqueProducts', products.slice(0, 4));
-            filterProducts('todos');
-        }
-
-        function filterProducts(category) {
-            currentFilter = category;
-            const filtered = category === 'todos' ? products : products.filter(p => p.category === category);
-            renderProducts('lojaProducts', filtered);
-            
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => {
-                if (btn.textContent.toLowerCase().includes(category) || 
-                    (category === 'todos' && btn.textContent.toLowerCase() === 'todos')) {
-                    btn.classList.add('active');
-                }
-            });
-        }
-
-        function viewProduct(id) {
-            selectedProduct = products.find(p => p.id === id);
-            const detImage = document.getElementById('detImage');
-            if (selectedProduct.isImage) {
-                detImage.innerHTML = `<img src="${selectedProduct.image}" alt="${selectedProduct.name}">`;
-            } else {
-                detImage.innerHTML = selectedProduct.image;
-            }
-            document.getElementById('detName').textContent = selectedProduct.name;
-            document.getElementById('detDesc').textContent = selectedProduct.description;
-            document.getElementById('detPrice').textContent = `R$ ${selectedProduct.price.toFixed(2)}`;
-            showPage('detalhes');
-        }
-
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            const existing = cart.find(item => item.id === id);
-            
-            if (existing) {
-                existing.quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-            
-            saveData();
-            updateCartBadge();
-            alert('Adicionado ao carrinho!');
-        }
-
-        function addToCartFromDetail() {
-            addToCart(selectedProduct.id);
-        }
-
-        function updateCartBadge() {
-            const badge = document.getElementById('cartBadge');
-            if (cart.length > 0) {
-                badge.textContent = cart.length;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
-        }
-
-        function renderVendedorProducts() {
-            if (!currentUser || currentUser.tipo !== 'vendedor') return;
-
-            const meusProducts = products.filter(p => p.vendedor === currentUser.email);
-            const html = meusProducts.map(p => `
-                <div class="vendedor-product-item">
-                    <div class="vendedor-product-image">
-                        ${p.isImage ? `<img src="${p.image}" alt="${p.name}">` : p.image}
-                    </div>
-                    <div class="vendedor-product-info">
-                        <h4>${p.name}</h4>
-                        <p>R$ ${p.price.toFixed(2)}</p>
-                        <p class="product-desc">${p.description}</p>
-                    </div>
-                    <div class="vendedor-product-actions">
-                        <button class="btn-edit" onclick="editProduct(${p.id})">Editar</button>
-                        <button class="btn-delete" onclick="deleteProduct(${p.id})">Deletar</button>
-                    </div>
-                </div>
-            `).join('');
-            document.getElementById('vendedorProducts').innerHTML = html || '<p>Você não tem produtos cadastrados</p>';
-        }
-
-        function addProduct() {
-            if (!currentUser || currentUser.tipo !== 'vendedor') {
-                alert('Apenas vendedores podem cadastrar produtos!');
-                return;
-            }
-
-            const name = document.getElementById('prodName').value.trim();
-            const price = parseFloat(document.getElementById('prodPrice').value);
-            const category = document.getElementById('prodCategory').value;
-            const description = document.getElementById('prodDesc').value.trim();
-            const imageInput = document.getElementById('prodImage');
-            
-            if (!name || !price || !description) {
-                alert('Preencha todos os campos obrigatórios!');
-                return;
-            }
-
-            const newProduct = {
-                id: Date.now(),
-                name,
-                price,
-                category,
-                description,
-                image: '👕',
-                isImage: false,
-                vendedor: currentUser.email
-            };
-
-            if (imageInput.files && imageInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    newProduct.image = e.target.result;
-                    newProduct.isImage = true;
-                    products.push(newProduct);
-                    saveData();
-                    clearForm();
-                    renderVendedorProducts();
-                    renderAllProducts();
-                    alert('Produto cadastrado com sucesso!');
-                };
-                reader.readAsDataURL(imageInput.files[0]);
-            } else {
-                products.push(newProduct);
-                saveData();
-                clearForm();
-                renderVendedorProducts();
-                renderAllProducts();
-                alert('Produto cadastrado com sucesso!');
-            }
-        }
-
-        function deleteProduct(id) {
-            if (!confirm('Tem certeza que deseja deletar este produto?')) return;
-            
-            const product = products.find(p => p.id === id);
-            if (product.vendedor !== currentUser.email) {
-                alert('Você não tem permissão!');
-                return;
-            }
-
-            products = products.filter(p => p.id !== id);
-            saveData();
-            renderVendedorProducts();
-            renderAllProducts();
-            alert('Produto deletado!');
-        }
-
-        function editProduct(id) {
-            alert('Edição em desenvolvimento!');
-        }
-
-        function clearForm() {
-            document.getElementById('prodName').value = '';
-            document.getElementById('prodPrice').value = '';
-            document.getElementById('prodDesc').value = '';
-            document.getElementById('prodImage').value = '';
-            document.getElementById('imagePreview').classList.add('hidden');
-        }
-
-        function previewImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const preview = document.getElementById('imagePreview');
-                    preview.src = e.target.result;
-                    preview.classList.remove('hidden');
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function updateUI() {
-            const btnLogin = document.getElementById('btnLogin');
-            const userInfo = document.getElementById('userInfo');
-            const navCadastro = document.getElementById('navCadastro');
-            const navVendedor = document.getElementById('navVendedor');
-            const btnCadastrarProduto = document.getElementById('btnCadastrarProduto');
-
-            if (currentUser) {
-                btnLogin.classList.add('hidden');
-                userInfo.classList.remove('hidden');
-                document.getElementById('userName').textContent = `Olá, ${currentUser.nome}`;
-
-                if (currentUser.tipo === 'vendedor') {
-                    navCadastro.classList.remove('hidden');
-                    navVendedor.classList.remove('hidden');
-                    btnCadastrarProduto.classList.remove('hidden');
-                } else {
-                    navCadastro.classList.add('hidden');
-                    navVendedor.classList.add('hidden');
-                    btnCadastrarProduto.classList.add('hidden');
-                }
-            } else {
-                btnLogin.classList.remove('hidden');
-                userInfo.classList.add('hidden');
-                navCadastro.classList.add('hidden');
-                navVendedor.classList.add('hidden');
-                btnCadastrarProduto.classList.add('hidden');
-            }
-        }
-
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
-        }
-
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('active');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            loadData();
-            initCarousel();
-            if (localStorage.getItem('darkMode') === 'true') {
-                document.body.classList.add('dark');
-            }
-        });
-    </script>
+    
+    <footer id="footer"></footer>
+    
+    <script src="js/main.js"></script>
+    <script src="js/produto.js"></script>
+    <script src="js/carrossel.js"></script>
+    <script src="js/home.js"></script>
 </body>
 </html>
